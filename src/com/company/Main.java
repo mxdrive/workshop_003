@@ -5,11 +5,13 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-//	    roundArr();
-//        contInput();
-//        deposite();
-//        evenNumbered();
+	    roundArr();
+        contInput();
+        deposite();
+        evenNumbered(new int[]{2, 3, 9, 5, 12, 1, 67, 20, 77, 4, 43, 3});
         maxRepeat();
+        triangle();
+        pieces();
     }
 
     //Найти среднее арифметическое элементов массива.
@@ -25,9 +27,10 @@ public class Main {
     }
 
 
-    //Организовать беспрерывный ввод чисел с клавиатуры, пока пользователь не введет 0. После ввода нуля, показать на экран
-    // количество чисел, которые были введены, их общую сумму и среднее арифметическое. Подсказка: необходимо объявить
-    // переменную-счетчик, которая будет считать количество введенных чисел, и переменную, которая будет накапливать общую сумму чисел.
+    //Организовать беспрерывный ввод чисел с клавиатуры, пока пользователь не введет 0. После ввода нуля, показать
+    // на экран количество чисел, которые были введены, их общую сумму и среднее арифметическое. Подсказка: необходимо
+    // объявить переменную-счетчик, которая будет считать количество введенных чисел, и переменную, которая будет
+    // накапливать общую сумму чисел.
     private static void contInput() {
         Scanner scanner = new Scanner(System.in);
         int number;
@@ -62,19 +65,23 @@ public class Main {
     }
 
     //Создать второй массив из четных элементов первого массива.
-    private static void evenNumbered() {
-        int[] arr1 = {2, 3, 9, 5, 12, 1, 67, 20, 77, 4, 43, 3};
-        int[] arr2 = new int[arr1.length];
+    private static void evenNumbered(int[] arr1) {
+        int[] arr2;
+        if (arr1.length % 2 != 0) {
+            arr2 = new int[Math.round(arr1.length / 2) + 1];
+        } else arr2 = new int[arr1.length / 2];
 
         for (int i = 0; i < arr1.length; i++) {
             if (i == 0) {
                 arr2[0] = arr1[0];
-                System.out.println("arr1[0] = " + arr1[0] + "\narr2[0] = " + arr2[0] + "\n_____________");
             }
             else if (i%2 == 0) {
                 arr2[i/2] = arr1[i];
-                System.out.println("arr1[" + i + "] = " + arr1[i] + "\narr2[" + i/2 + "] = " + arr2[i/2] + "\n_____________");
             }
+        }
+        for (int j :
+                arr2) {
+            System.out.println(j);
         }
     }
 
@@ -104,13 +111,51 @@ public class Main {
 
     //Нарисовать треугольник из символов с числом рядов, определяемым пользователем (ввод с консоли).
     private static void triangle() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type number of rows");
+        int rows = scanner.nextInt();
+        int row = rows;
 
+        while (row > 0) {
+            StringBuilder spaces = new StringBuilder();
+            StringBuilder oneRow = new StringBuilder(("^"));
+
+            for (int i = row; i > 1; i--) {
+                spaces.append(" ");
+            }
+
+            int diff = rows - row + 1;
+            for (int j = 0; j < diff; j++) {
+                if (j != 0) {
+                    oneRow.append("^^");
+                }
+            }
+
+            System.out.println(spaces.toString() + oneRow);
+            row--;
+        }
     }
 
-    //Имеется кусок ткани длиной M метров. От него последовательно отрезают куски равной длины. Все данные по использованию ткани заносятся в компьютер. Компьютер должен выдать сообщение о том, что материала не хватает, если будет затребован кусок ткани больше длины, чем имеется.
+    //Имеется кусок ткани длиной M метров. От него последовательно отрезают куски равной длины. Все данные по
+    // использованию ткани заносятся в компьютер. Компьютер должен выдать сообщение о том, что материала не хватает,
+    // если будет затребован кусок ткани больше длины, чем имеется.
+    private static void pieces() {
+        int m = 42;
+        Scanner scanner  = new Scanner(System.in);
+        System.out.println("Input piece size");
+        int pieceSize = scanner.nextInt();
 
+        if (pieceSize > m) {
+            System.out.println("Piece too large");
+        } else {
+            while (m >= 0){
+                if ((m - pieceSize) < 0) {
+                    System.out.println("No space left");
+                }
+                m -= pieceSize;
+            }
+        }
 
-
-
+    }
 
 }
